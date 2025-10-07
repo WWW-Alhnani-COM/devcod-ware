@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Portfolio Details - DevFolio Bootstrap Template</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+  <title>DevCod Ware - شركة برمجيات متكاملة</title>
+  <meta name="description" content="DevCod Ware - شركة متخصصة في تطوير مواقع الويب، تطبيقات الموبايل، وتطبيقات سطح المكتب">
+  <meta name="keywords" content="تطوير مواقع, تطبيقات موبايل, برمجة, React, Flutter, Laravel">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
@@ -27,50 +27,247 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: DevFolio
-  * Template URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
-  * Updated: Aug 07 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <style>
+    /* تنسيقات إضافية للتفاصيل المنبثقة */
+    .portfolio-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      overflow-y: auto;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .portfolio-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .portfolio-modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 1000px;
+      width: 100%;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .portfolio-modal-close {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #ff6b6b;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+      z-index: 10;
+    }
+
+    .portfolio-modal-close:hover {
+      background: #ff5252;
+    }
+
+    .portfolio-modal-slider {
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .portfolio-modal-slider .main-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-thumbnails {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+
+    .thumbnail {
+      width: 80px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .thumbnail.active, .thumbnail:hover {
+      border-color: #007bff;
+      transform: scale(1.05);
+    }
+
+    .portfolio-info {
+      background: #f8f9fa;
+      padding: 25px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .portfolio-info h3 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #007bff;
+    }
+
+    .portfolio-info ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .portfolio-info li {
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #dee2e6;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .portfolio-info li:last-child {
+      border-bottom: none;
+    }
+
+    .portfolio-info strong {
+      color: #2c3e50;
+    }
+
+    .btn-visit {
+      display: inline-block;
+      background: #007bff;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 15px;
+      transition: all 0.3s;
+      font-weight: 600;
+      text-align: center;
+      width: 100%;
+    }
+
+    .btn-visit:hover {
+      background: #0056b3;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+    }
+
+    .portfolio-description h2 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #007bff;
+    }
+
+    .testimonial-item {
+      background: #f8f9fa;
+      padding: 25px;
+      border-radius: 10px;
+      margin: 25px 0;
+      border-right: 5px solid #007bff;
+    }
+
+    .testimonial-item p {
+      font-style: italic;
+      margin-bottom: 15px;
+    }
+
+    .testimonial-item .quote-icon-left,
+    .testimonial-item .quote-icon-right {
+      color: #007bff;
+      font-size: 24px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .testimonial-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    /* تحسينات للاستجابة */
+    @media (max-width: 768px) {
+      .portfolio-modal-content {
+        padding: 20px;
+        margin: 10px;
+      }
+      
+      .portfolio-modal-slider .main-image {
+        height: 250px;
+      }
+      
+      .thumbnail {
+        width: 60px;
+        height: 45px;
+      }
+    }
+  </style>
 </head>
 
-<body class="portfolio-details-page">
+<body class="index-page">
 
   <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
       <a href="index.html" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">DevFolio</h1>
+        <h1 class="sitename">DevCod Ware</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero">Home<br></a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li><a href="#hero" class="active">الرئيسية</a></li>
+          <li><a href="#about">من نحن</a></li>
+          <li><a href="#services">خدماتنا</a></li>
+          <li><a href="#portfolio">أعمالنا</a></li>
+          <li class="dropdown"><a href="#"><span>المزيد</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="#">Dropdown 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <li><a href="#">أسعارنا</a></li>
+              <li class="dropdown"><a href="#"><span>خدمات متقدمة</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                 <ul>
-                  <li><a href="#">Deep Dropdown 1</a></li>
-                  <li><a href="#">Deep Dropdown 2</a></li>
-                  <li><a href="#">Deep Dropdown 3</a></li>
-                  <li><a href="#">Deep Dropdown 4</a></li>
-                  <li><a href="#">Deep Dropdown 5</a></li>
+                  <li><a href="#">تطوير متاجر إلكترونية</a></li>
+                  <li><a href="#">تطبيقات الشركات</a></li>
+                  <li><a href="#">أنظمة إدارة المحتوى</a></li>
+                  <li><a href="#">حلول الدفع الإلكتروني</a></li>
+                  <li><a href="#">استشارات تقنية</a></li>
                 </ul>
               </li>
-              <li><a href="#">Dropdown 2</a></li>
-              <li><a href="#">Dropdown 3</a></li>
-              <li><a href="#">Dropdown 4</a></li>
+              <li><a href="#">مدونة</a></li>
+              <li><a href="#">الأسئلة الشائعة</a></li>
+              <li><a href="#contact">اتصل بنا</a></li>
             </ul>
           </li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact">اتصل بنا</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -80,130 +277,90 @@
 
   <main class="main">
 
-    <!-- Page Title -->
-    <div class="page-title" data-aos="fade">
-      <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">Portfolio Details</h1>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Portfolio Details</li>
-          </ol>
-        </nav>
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+      <img src="assets/img/hero-img.jpg" alt="" data-aos="fade-in">
+      <div class="container d-flex flex-column align-items-center justify-content-center text-center" data-aos="fade-up" data-aos-delay="100">
+        <h2>DevCod Ware</h2>
+        <p><span class="typed" data-typed-items="تطوير مواقع الويب, تطبيقات الموبايل, تطبيقات سطح المكتب, حلول برمجية متكاملة"></span></p>
       </div>
-    </div><!-- End Page Title -->
+    </section><!-- /Hero Section -->
 
-    <!-- Portfolio Details Section -->
-    <section id="portfolio-details" class="portfolio-details section">
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>أعمالنا</h2>
+        <p>إليكم مجموعة من أبرز المشاريع التي نفخر بتنفيذها</p>
+      </div><!-- End Section Title -->
 
-      <div class="container" data-aos="fade-up">
+      <div class="container">
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
-        <div class="portfolio-details-slider swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "navigation": {
-                "nextEl": ".swiper-button-next",
-                "prevEl": ".swiper-button-prev"
-              },
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              }
-            }
-          </script>
-          <div class="swiper-wrapper align-items-center">
+          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+            <li data-filter="*" class="filter-active">الكل</li>
+            <li data-filter=".filter-app">تطبيقات</li>
+            <li data-filter=".filter-product">منتجات</li>
+            <li data-filter=".filter-branding">هوية بصرية</li>
+            <li data-filter=".filter-books">كتب</li>
+          </ul><!-- End Portfolio Filters -->
 
-            <div class="swiper-slide">
-              <img src="assets/img/portfolio/app-1.jpg" alt="">
-            </div>
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
-            <div class="swiper-slide">
-              <img src="assets/img/portfolio/product-1.jpg" alt="">
-            </div>
-
-            <div class="swiper-slide">
-              <img src="assets/img/portfolio/branding-1.jpg" alt="">
-            </div>
-
-            <div class="swiper-slide">
-              <img src="assets/img/portfolio/books-1.jpg" alt="">
-            </div>
-
-          </div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-        <div class="row justify-content-between gy-4 mt-4">
-
-          <div class="col-lg-8" data-aos="fade-up">
-            <div class="portfolio-description">
-              <h2>This is an example of portfolio details</h2>
-              <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
-              </p>
-              <p>
-                Amet consequatur qui dolore veniam voluptatem voluptatem sit. Non aspernatur atque natus ut cum nam et. Praesentium error dolores rerum minus sequi quia veritatis eum. Eos et doloribus doloremque nesciunt molestiae laboriosam.
-              </p>
-
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <div>
-                  <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                  <h3>Sara Wilsson</h3>
-                  <h4>Designer</h4>
-                </div>
+            <!-- Project 1 -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app" data-project="project1">
+              <img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>عطر أوسما</h4>
+                <p>اكتشف مجموعتنا الواسعة من العطور الرجالية والنسائية</p>
+                <a href="assets/img/portfolio/app-1.jpg" title="عطر أوسما" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="#" class="details-link" data-project="project1"><i class="bi bi-link-45deg"></i></a>
               </div>
+            </div><!-- End Portfolio Item -->
 
-              <p>
-                Impedit ipsum quae et aliquid doloribus et voluptatem quasi. Perspiciatis occaecati earum et magnam animi. Quibusdam non qui ea vitae suscipit vitae sunt. Repudiandae incidunt cumque minus deserunt assumenda tempore. Delectus voluptas necessitatibus est.
-              </p>
+            <!-- Project 2 -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product" data-project="project2">
+              <img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>نظام إدارة الشحن</h4>
+                <p>نظام لوجستي لشركة شحن</p>
+                <a href="assets/img/portfolio/product-1.jpg" title="نظام إدارة شحن" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="#" class="details-link" data-project="project2"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
 
-              <p>
-                Sunt voluptatum sapiente facilis quo odio aut ipsum repellat debitis. Molestiae et autem libero. Explicabo et quod necessitatibus similique quis dolor eum. Numquam eaque praesentium rem et qui nesciunt.
-              </p>
+            <!-- Project 3 -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding" data-project="project3">
+              <img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>هوية بصرية متكاملة</h4>
+                <p>تصميم هوية بصرية لشركة تقنية ناشئة</p>
+                <a href="assets/img/portfolio/branding-1.jpg" title="هوية بصرية" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                <a href="#" class="details-link" data-project="project3"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div><!-- End Portfolio Item -->
 
-            </div>
           </div>
-
-          <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100">
-            <div class="portfolio-info">
-              <h3>Project information</h3>
-              <ul>
-                <li><strong>Category</strong> Web design</li>
-                <li><strong>Client</strong> ASU Company</li>
-                <li><strong>Project date</strong> 01 March, 2020</li>
-                <li><strong>Project URL</strong> <a href="#">www.example.com</a></li>
-                <li><a href="#" class="btn-visit align-self-start">Visit Website</a></li>
-              </ul>
-            </div>
-          </div>
-
         </div>
-
       </div>
+    </section><!-- /Portfolio Section -->
 
-    </section><!-- /Portfolio Details Section -->
+    <!-- Modal for Project Details -->
+    <div id="portfolioModal" class="portfolio-modal">
+      <div class="portfolio-modal-content">
+        <button class="portfolio-modal-close">&times;</button>
+        <div id="portfolioModalContent">
+          <!-- سيتم تعبئة المحتوى هنا ديناميكيًا -->
+        </div>
+      </div>
+    </div>
 
   </main>
 
   <footer id="footer" class="footer accent-background">
-
     <div class="container">
-      <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">DevFolio</strong> <span>All Rights Reserved</span></p>
+      <div class="copyright text-center">
+        <p>© <span>جميع الحقوق محفوظة</span> <strong class="px-1 sitename">DevCod Ware</strong> <span>2024</span></p>
       </div>
       <div class="social-links d-flex justify-content-center">
         <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -212,21 +369,10 @@
         <a href=""><i class="bi bi-linkedin"></i></a>
       </div>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        مصمم بواسطة <a href="https://devcodware.com/">DevCod Ware</a>
       </div>
     </div>
-
   </footer>
-
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -243,6 +389,201 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
-</body>
+  <script>
+    // بيانات المشاريع
+    const projectsData = {
+      project1: {
+        title: "عطر أوسما - متجر إلكتروني متكامل",
+        category: "متجر إلكتروني",
+        client: "عطر أوسما",
+        date: "01 مارس, 2023",
+        website: "https://www.osma-perfume.com",
+        images: [
+          "assets/img/portfolio/app-1.jpg",
+          "assets/img/portfolio/product-1.jpg",
+          "assets/img/portfolio/branding-1.jpg"
+        ],
+        description: `
+          <p>مشروع عطر أوسما هو متجر إلكتروني متكامل تم تطويره لبيع مجموعة واسعة من العطور الرجالية والنسائية. تم تصميم المتجر لتقديم تجربة تسوق فريدة ومميزة للعملاء.</p>
+          <p>تم تطوير المتجر باستخدام أحدث التقنيات لضمان الأداء العالي والأمان والتوافق مع جميع الأجهزة. يحتوي المتجر على نظام إدارة محتوى متكامل يسمح لصاحب المتجر بإدارة المنتجات والطلبات والعملاء بسهولة.</p>
+          <div class="testimonial-item">
+            <p>
+              <i class="bi bi-quote quote-icon-left"></i>
+              <span>تعاملنا مع DevCod Ware لتطوير متجر عطر أوسما وكانت النتيجة مذهلة. المتجر ساعد في زيادة مبيعاتنا بنسبة 300% بفضل التصميم الرائع والأداء المتميز.</span>
+              <i class="bi bi-quote quote-icon-right"></i>
+            </p>
+            <div class="testimonial-author">
+              <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="صاحب متجر عطر أوسما">
+              <div>
+                <h3>سارة عبدالله</h3>
+                <h4>صاحبة متجر عطر أوسما</h4>
+              </div>
+            </div>
+          </div>
+          <p>تم ربط المتجر بأنظمة الدفع الإلكتروني المختلفة وأنظمة الشحن لضمان تجربة تسوق سلسة للعملاء. كما تم تطوير تطبيق موبايل للمتجر لتمكين العملاء من التسوق عبر هواتفهم الذكية.</p>
+          <p>يتميز المتجر بواجهة مستخدم تفاعلية وسهلة الاستخدام، مع إمكانية البحث المتقدم والتصفية حسب الفئة والسعر والعلامة التجارية. كما يحتوي على نظام تقييم ومراجعات للمنتجات لمساعدة العملاء في اتخاذ قرار الشراء.</p>
+        `
+      },
+      project2: {
+        title: "نظام إدارة الشحن اللوجستي",
+        category: "نظام إداري",
+        client: "شركة الشحن السريع",
+        date: "15 يونيو, 2023",
+        website: "https://www.shipping-system.com",
+        images: [
+          "assets/img/portfolio/product-1.jpg",
+          "assets/img/portfolio/app-1.jpg",
+          "assets/img/portfolio/branding-1.jpg"
+        ],
+        description: `
+          <p>نظام متكامل لإدارة عمليات الشحن والتوصيل تم تطويره لشركة شحن رائدة. النظام يغطي جميع مراحل عملية الشحن من استلام الطلبات حتى التوصيل النهائي.</p>
+          <p>يتميز النظام بواجهة إدارة سهلة الاستخدام وتقارير متقدمة وتحليلات أداء شاملة. كما يتضمن تطبيق موبايل للسائقين لتتبع وتحديث حالة الشحنات.</p>
+          <div class="testimonial-item">
+            <p>
+              <i class="bi bi-quote quote-icon-left"></i>
+              <span>النظام الذي طورته DevCod Ware أحدث ثورة في عملياتنا. أصبحنا نستطيع تتبع جميع الشحنات في الوقت الفعلي وتقديم خدمة أفضل للعملاء.</span>
+              <i class="bi bi-quote quote-icon-right"></i>
+            </p>
+            <div class="testimonial-author">
+              <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="مدير شركة الشحن">
+              <div>
+                <h3>خالد الحربي</h3>
+                <h4>مدير شركة الشحن السريع</h4>
+              </div>
+            </div>
+          </div>
+          <p>النظام ساعد في تقليل وقت التسليم بنسبة 40% وزيادة كفاءة العمليات بنسبة 60%. كما وفر رؤية شاملة لسلسلة التوريد وساعد في اتخاذ قرارات استراتيجية أفضل.</p>
+        `
+      },
+      project3: {
+        title: "هوية بصرية متكاملة",
+        category: "تصميم هوية بصرية",
+        client: "شركة تقنية ناشئة",
+        date: "10 يناير, 2024",
+        website: "https://www.tech-startup.com",
+        images: [
+          "assets/img/portfolio/branding-1.jpg",
+          "assets/img/portfolio/app-1.jpg",
+          "assets/img/portfolio/product-1.jpg"
+        ],
+        description: `
+          <p>تصميم هوية بصرية متكاملة لشركة تقنية ناشئة تشمل الشعار والألوان والخطوط وتطبيقات الهوية على مختلف الوسائط.</p>
+          <p>تم تصميم الهوية البصرية لتعبّر عن روح الابتكار والتقنية مع الحفاظ على البساطة والاحترافية. اعتمدنا على ألوان تعكس الثقة والحداثة مع خطوط واضحة وسهلة القراءة.</p>
+          <div class="testimonial-item">
+            <p>
+              <i class="bi bi-quote quote-icon-left"></i>
+              <span>الهوية البصرية التي صممتها DevCod Ware ساعدتنا في بناء صورة قوية في السوق. أصبح عملاؤنا يتعرفون على علامتنا التجارية بسهولة.</span>
+              <i class="bi bi-quote quote-icon-right"></i>
+            </p>
+            <div class="testimonial-author">
+              <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="مدير الشركة التقنية">
+              <div>
+                <h3>أحمد محمد</h3>
+                <h4>المدير التنفيذي للشركة</h4>
+              </div>
+            </div>
+          </div>
+          <p>يشمل المشروع تصميم موقع إلكتروني، تطبيقات موبايل، مواد ترويجية، وتصميم مكتبي متكامل. كما تم تطوير دليل استخدام للهوية البصرية لضمان تطبيقها بشكل متسق عبر جميع القنوات.</p>
+        `
+      }
+    };
 
+    // إظهار تفاصيل المشروع
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('portfolioModal');
+      const modalContent = document.getElementById('portfolioModalContent');
+      const closeBtn = document.querySelector('.portfolio-modal-close');
+
+      // إضافة حدث النقر لروابط التفاصيل
+      document.querySelectorAll('.details-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const projectId = this.getAttribute('data-project');
+          showProjectDetails(projectId);
+        });
+      });
+
+      // إغلاق النافذة المنبثقة
+      closeBtn.addEventListener('click', function() {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+
+      // إغلاق النافذة عند النقر خارج المحتوى
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
+      });
+
+      // إغلاق النافذة بمفتاح ESC
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          modal.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
+      });
+
+      function showProjectDetails(projectId) {
+        const project = projectsData[projectId];
+        
+        if (!project) return;
+
+        // إنشاء محتوى النافذة المنبثقة
+        const content = `
+          <div class="portfolio-modal-slider">
+            <img src="${project.images[0]}" alt="${project.title}" class="main-image" id="modalMainImage">
+            <div class="image-thumbnails">
+              ${project.images.map((img, index) => `
+                <img src="${img}" alt="صورة ${index + 1}" class="thumbnail ${index === 0 ? 'active' : ''}" 
+                     onclick="changeMainImage('${img}', this)">
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="row justify-content-between gy-4">
+            <div class="col-lg-8">
+              <div class="portfolio-description">
+                <h2>${project.title}</h2>
+                ${project.description}
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="portfolio-info">
+                <h3>معلومات المشروع</h3>
+                <ul>
+                  <li><strong>الفئة:</strong> ${project.category}</li>
+                  <li><strong>العميل:</strong> ${project.client}</li>
+                  <li><strong>تاريخ المشروع:</strong> ${project.date}</li>
+                  <li><strong>رابط المشروع:</strong> <a href="${project.website}" target="_blank">${project.website}</a></li>
+                </ul>
+                <a href="${project.website}" target="_blank" class="btn-visit">زيارة الموقع</a>
+              </div>
+            </div>
+          </div>
+        `;
+
+        modalContent.innerHTML = content;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      // دالة لتغيير الصورة الرئيسية
+      window.changeMainImage = function(src, element) {
+        document.getElementById('modalMainImage').src = src;
+        
+        // إزالة النشط من جميع الصور المصغرة
+        document.querySelectorAll('.thumbnail').forEach(thumb => {
+          thumb.classList.remove('active');
+        });
+        
+        // إضافة النشط للصورة المحددة
+        element.classList.add('active');
+      };
+    });
+  </script>
+
+</body>
 </html>
