@@ -498,16 +498,36 @@ h6 {
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
+/* 1. تعديل الـ Preloader ليختفي تلقائياً بعد مدة زمنية حتى بدون JS */
 #preloader {
   position: fixed;
   inset: 0;
   z-index: 999999;
-  overflow: hidden;
   background: var(--background-color);
-  transition: all 0.6s ease-out;
-  /* إضافة السطر التالي لإخفائه في حال تعطل الـ JS */
-  display: none !important; 
+  /* أضف هذا السطر لجعل الدائرة تختفي تدريجياً تلقائياً */
+  animation: fadeOutPreloader 0.5s ease-in 3s forwards; 
 }
+
+@keyframes fadeOutPreloader {
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* 2. حل مشكلة اختفاء العناصر (بدون تخريب التصميم) */
+/* بدلاً من فرض opacity: 1 على كل شيء، سنقوم بتعطيل حالة الإخفاء فقط */
+[data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+  /* نلغي الـ transition لمنع التعليق */
+  transition: none !important; 
+}
+
+/* 3. إصلاح الـ Portfolio (Isotope) */
+/* لا تضف position: relative !important هنا لأنها تكسر ترتيب الصور */
+.isotope-container {
+  min-height: 400px; /* ضمان وجود مساحة حتى لو تأخر الحساب */
+}
+
 
 #preloader:before {
   content: "";
@@ -1890,20 +1910,3 @@ section,
 --------------------------------------------------------------*/
 
 /* إجبار العناصر التي تنتظر الأنميشن على الظهور فوراً */
-[data-aos] {
-  opacity: 1 !important;
-  transform: translate(0) scale(1) !important;
-  visibility: visible !important;
-}
-
-/* تحسين ظهور الصور في قسم الـ Portfolio */
-.isotope-item {
-  opacity: 1 !important;
-  position: relative !important;
-}
-
-/* إلغاء أي تأخير زمني قد يعطل ظهور النصوص */
-[data-aos-delay] {
-  transition-delay: 0s !important;
-}
-
