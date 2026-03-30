@@ -495,6 +495,9 @@ h6 {
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
 #preloader {
   position: fixed;
   inset: 0;
@@ -502,6 +505,8 @@ h6 {
   overflow: hidden;
   background: var(--background-color);
   transition: all 0.6s ease-out;
+  /* إضافة السطر التالي لإخفائه في حال تعطل الـ JS */
+  display: none !important; 
 }
 
 #preloader:before {
@@ -1877,3 +1882,28 @@ section,
 .isotope-item {
     opacity: 1 !important;
 }
+
+
+
+/*--------------------------------------------------------------
+# Fix for Mobile & Scripts Error
+--------------------------------------------------------------*/
+
+/* إجبار العناصر التي تنتظر الأنميشن على الظهور فوراً */
+[data-aos] {
+  opacity: 1 !important;
+  transform: translate(0) scale(1) !important;
+  visibility: visible !important;
+}
+
+/* تحسين ظهور الصور في قسم الـ Portfolio */
+.isotope-item {
+  opacity: 1 !important;
+  position: relative !important;
+}
+
+/* إلغاء أي تأخير زمني قد يعطل ظهور النصوص */
+[data-aos-delay] {
+  transition-delay: 0s !important;
+}
+
