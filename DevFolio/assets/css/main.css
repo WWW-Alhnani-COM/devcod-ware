@@ -1856,3 +1856,24 @@ section,
   position: relative;
   z-index: 2;
 }
+
+
+
+
+
+/* إخفاء دائرة التحميل إجبارياً */
+#preloader {
+    display: none !important;
+}
+
+/* إظهار كافة العناصر التي تنتظر الأنميشن فوراً */
+[data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+}
+
+/* التأكد من أن الصور تظهر ولا تبقى مخفية */
+.isotope-item {
+    opacity: 1 !important;
+}
