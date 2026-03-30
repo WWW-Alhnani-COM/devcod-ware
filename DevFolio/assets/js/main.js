@@ -105,7 +105,7 @@
   /**
    * تهيئة مكتبة الأنميشن AOS
    */
-  function aosInit() {
+    function aosInit() {
     if (typeof AOS !== 'undefined') {
       AOS.init({
         duration: 600,
@@ -113,8 +113,11 @@
         once: true,
         mirror: false
       });
+      // إضافة سطر لإنعاش الأنميشن يدوياً
+      AOS.refresh(); 
     }
   }
+  // تشغيلها عند التحميل وعند اختفاء الـ preloader قسراً
   window.addEventListener('load', aosInit);
 
   /**
